@@ -1,5 +1,6 @@
 package org.example;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -7,9 +8,15 @@ public class SHA256Util {
 
     // SHA-256 해시 함수
     public static String sha256(String input) {
+        String salt = "";
         try {
             // SHA-256 알고리즘 사용
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            // salt 적용
+            digest.reset();
+            digest.update(salt.getBytes(StandardCharsets.UTF_8));
+
             byte[] hash = digest.digest(input.getBytes());
 
             // 바이트 배열을 16진수 문자열로 변환
